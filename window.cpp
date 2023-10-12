@@ -32,26 +32,22 @@ Window::Window(QWidget *parent)
 
 void Window::firstDayChanged(int index)
 {
-    calendar->setFirstDayOfWeek(Qt::DayOfWeek(
-        firstDayCombo->itemData(index).toInt()));
+    calendar->setFirstDayOfWeek(Qt::DayOfWeek(firstDayCombo->itemData(index).toInt()));
 }
 
 void Window::selectionModeChanged(int index)
 {
-    calendar->setSelectionMode(QCalendarWidget::SelectionMode(
-        selectionModeCombo->itemData(index).toInt()));
+    calendar->setSelectionMode(QCalendarWidget::SelectionMode(selectionModeCombo->itemData(index).toInt()));
 }
 
 void Window::horizontalHeaderChanged(int index)
 {
-    calendar->setHorizontalHeaderFormat(QCalendarWidget::HorizontalHeaderFormat(
-        horizontalHeaderCombo->itemData(index).toInt()));
+    calendar->setHorizontalHeaderFormat(QCalendarWidget::HorizontalHeaderFormat(horizontalHeaderCombo->itemData(index).toInt()));
 }
 
 void Window::verticalHeaderChanged(int index)
 {
-    calendar->setVerticalHeaderFormat(QCalendarWidget::VerticalHeaderFormat(
-        verticalHeaderCombo->itemData(index).toInt()));
+    calendar->setVerticalHeaderFormat(QCalendarWidget::VerticalHeaderFormat(verticalHeaderCombo->itemData(index).toInt()));
 }
 
 void Window::selectedDateChanged()
@@ -60,24 +56,12 @@ void Window::selectedDateChanged()
     currentDateLabel->setText(currentDateEdit->text());
 }
 
-void Window::minimumDateChanged(QDate date)
-{
-    calendar->setMinimumDate(date);
-    maximumDateEdit->setDate(calendar->maximumDate());
-}
-
-void Window::maximumDateChanged(QDate date)
-{
-    calendar->setMaximumDate(date);
-    minimumDateEdit->setDate(calendar->minimumDate());
-}
-
 void Window::weekdayFormatChanged()
 {
     QTextCharFormat format;
 
     format.setForeground(qvariant_cast<QColor>(
-        weekdayColorCombo->itemData(weekdayColorCombo->currentIndex())));
+    weekdayColorCombo->itemData(weekdayColorCombo->currentIndex())));
     calendar->setWeekdayTextFormat(Qt::Monday, format);
     calendar->setWeekdayTextFormat(Qt::Tuesday, format);
     calendar->setWeekdayTextFormat(Qt::Wednesday, format);
@@ -146,8 +130,7 @@ void Window::createPreviewGroupBox()
     calendar->setMaximumDate(QDate(3000, 1, 1));
     calendar->setGridVisible(true);
 
-    connect(calendar, &QCalendarWidget::currentPageChanged,
-            this, &Window::reformatCalendarPage);
+    connect(calendar, &QCalendarWidget::currentPageChanged, this, &Window::reformatCalendarPage);
 
     previewLayout = new QGridLayout;
     previewLayout->addWidget(calendar, 0, 0, Qt::AlignCenter);
@@ -161,14 +144,12 @@ void Window::createDatesGroupBox()
     currentDateEdit = new QDateEdit;
     currentDateEdit->setDisplayFormat("MMM d yyyy");
     currentDateEdit->setDate(calendar->selectedDate());
-    currentDateEdit->setDateRange(calendar->minimumDate(),
-                                  calendar->maximumDate());
+    currentDateEdit->setDateRange(calendar->minimumDate(), calendar->maximumDate());
 
     currentDateLabel = new QLabel();
     currentDateLabel->setText(currentDateEdit->text());
 
-    connect(calendar, &QCalendarWidget::selectionChanged,
-            this, &Window::selectedDateChanged);
+    connect(calendar, &QCalendarWidget::selectionChanged, this, &Window::selectedDateChanged);
 
     QGridLayout *dateBoxLayout = new QGridLayout;
     dateBoxLayout->addWidget(currentDateLabel);
@@ -180,29 +161,19 @@ void Window::createTextFormatsGroupBox()
 {
     weekdayColorCombo = createColorComboBox();
     weekdayColorCombo->setCurrentIndex(
-        weekdayColorCombo->findText(tr("Black")));
-
-    weekdayColorLabel = new QLabel(tr("&Weekday color:"));
-    weekdayColorLabel->setBuddy(weekdayColorCombo);
+    weekdayColorCombo->findText(tr("Black")));
 
     weekendColorCombo = createColorComboBox();
     weekendColorCombo->setCurrentIndex(
-        weekendColorCombo->findText(tr("Red")));
-
-    weekendColorLabel = new QLabel(tr("Week&end color:"));
-    weekendColorLabel->setBuddy(weekendColorCombo);
+    weekendColorCombo->findText(tr("Red")));
 
     headerTextFormatCombo = new QComboBox;
     headerTextFormatCombo->addItem(tr("Bold"));
     headerTextFormatCombo->addItem(tr("Italic"));
     headerTextFormatCombo->addItem(tr("Plain"));
 
-    headerTextFormatLabel = new QLabel(tr("&Header text:"));
-    headerTextFormatLabel->setBuddy(headerTextFormatCombo);
-
-    firstFridayCheckBox = new QCheckBox(tr("&First Friday in blue"));
-
-    mayFirstCheckBox = new QCheckBox(tr("May &1 in red"));
+    firstFridayCheckBox = new QCheckBox();
+    mayFirstCheckBox = new QCheckBox();
 
     connect(weekdayColorCombo, &QComboBox::currentIndexChanged,
             this, &Window::weekdayFormatChanged);
