@@ -24,14 +24,11 @@ public:
     Window(QWidget *parent = nullptr);
 
 private slots:
-    void localeChanged(int index);
     void firstDayChanged(int index);
     void selectionModeChanged(int index);
     void horizontalHeaderChanged(int index);
     void verticalHeaderChanged(int index);
     void selectedDateChanged();
-    void minimumDateChanged(QDate date);
-    void maximumDateChanged(QDate date);
     void weekdayFormatChanged();
     void weekendFormatChanged();
     void reformatHeaders();
@@ -49,13 +46,11 @@ private:
     QCalendarWidget *calendar;
 
     QGroupBox *generalOptionsGroupBox;
-    QLabel *localeLabel;
     QLabel *firstDayLabel;
 
     QLabel *selectionModeLabel;
     QLabel *horizontalHeaderLabel;
     QLabel *verticalHeaderLabel;
-    QComboBox *localeCombo;
     QComboBox *firstDayCombo;
     QComboBox *selectionModeCombo;
     QCheckBox *gridCheckBox;
@@ -65,11 +60,7 @@ private:
 
     QGroupBox *datesGroupBox;
     QLabel *currentDateLabel;
-    QLabel *minimumDateLabel;
-    QLabel *maximumDateLabel;
     QDateEdit *currentDateEdit;
-    QDateEdit *minimumDateEdit;
-    QDateEdit *maximumDateEdit;
 
     QGroupBox *textFormatsGroupBox;
     QLabel *weekdayColorLabel;
