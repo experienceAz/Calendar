@@ -13,7 +13,6 @@ Window::Window(QWidget *parent)
     : QWidget(parent)
 {
     createPreviewGroupBox();
-    createGeneralOptionsGroupBox();
     createDatesGroupBox();
     createTextFormatsGroupBox();
 
@@ -30,13 +29,6 @@ Window::Window(QWidget *parent)
     setWindowTitle(tr("Календарь"));
 }
 
-void Window::localeChanged(int index)
-{
-    const QLocale newLocale(localeCombo->itemData(index).toLocale());
-    calendar->setLocale(newLocale);
-    int newLocaleFirstDayIndex = firstDayCombo->findData(newLocale.firstDayOfWeek());
-    firstDayCombo->setCurrentIndex(newLocaleFirstDayIndex);
-}
 
 void Window::firstDayChanged(int index)
 {
@@ -162,29 +154,6 @@ void Window::createPreviewGroupBox()
     previewGroupBox->setLayout(previewLayout);
 }
 
-void Window::createGeneralOptionsGroupBox()
-{
-    localeCombo = new QComboBox;
-    int curLocaleIndex = -1;
-    int index = 0;
-    for (int _lang = QLocale::C; _lang <= QLocale::LastLanguage; ++_lang) {
-        QLocale::Language lang = static_cast<QLocale::Language>(_lang);
-        const auto locales =
-            QLocale::matchingLocales(lang, QLocale::AnyScript, QLocale::AnyTerritory);
-        for (auto loc : locales) {
-            QString label = QLocale::languageToString(lang);
-            auto territory = loc.territory();
-            label += QLatin1Char('/');
-            label += QLocale::territoryToString(territory);
-            if (locale().language() == lang && locale().territory() == territory)
-                curLocaleIndex = index;
-            localeCombo->addItem(label, loc);
-            ++index;
-        }
-    }
-
-}
-
 void Window::createDatesGroupBox()
 {
     datesGroupBox = new QGroupBox();
@@ -223,7 +192,6 @@ void Window::createTextFormatsGroupBox()
     weekendColorLabel = new QLabel(tr("Week&end color:"));
     weekendColorLabel->setBuddy(weekendColorCombo);
 
-    //! [16] //! [17]
     headerTextFormatCombo = new QComboBox;
     headerTextFormatCombo->addItem(tr("Bold"));
     headerTextFormatCombo->addItem(tr("Italic"));
@@ -256,7 +224,6 @@ void Window::createTextFormatsGroupBox()
     checkBoxLayout->addStretch();
     checkBoxLayout->addWidget(mayFirstCheckBox);
 
-    weekdayFormatChanged();
     weekendFormatChanged();
     reformatHeaders();
     reformatCalendarPage();

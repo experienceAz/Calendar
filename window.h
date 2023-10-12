@@ -1,6 +1,3 @@
-// Copyright (C) 2020 The Qt Company Ltd.
-// SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
-
 #ifndef WINDOW_H
 #define WINDOW_H
 
@@ -18,7 +15,7 @@ class QGroupBox;
 class QLabel;
 QT_END_NAMESPACE
 
-//! [0]
+
 class Window : public QWidget
 {
     Q_OBJECT
@@ -42,7 +39,6 @@ private slots:
 
 private:
     void createPreviewGroupBox();
-    void createGeneralOptionsGroupBox();
     void createDatesGroupBox();
     void createDatesGroupBox2();
     void createTextFormatsGroupBox();
@@ -55,7 +51,7 @@ private:
     QGroupBox *generalOptionsGroupBox;
     QLabel *localeLabel;
     QLabel *firstDayLabel;
-//! [0]
+
     QLabel *selectionModeLabel;
     QLabel *horizontalHeaderLabel;
     QLabel *verticalHeaderLabel;
@@ -84,9 +80,7 @@ private:
     QComboBox *headerTextFormatCombo;
 
     QCheckBox *firstFridayCheckBox;
-//! [1]
     QCheckBox *mayFirstCheckBox;
 };
-//! [1]
 
 #endif
